@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { map } from 'rxjs';
 
+import { environment } from '../../../../environments/environment';
 import { localStorageSignal } from '../../../shared/utils/local-storage-signal';
 import { Character } from '../../characters/types/character.type';
 
@@ -56,7 +57,7 @@ export class FavoritesService {
     }
 
     this._http
-      .get<Character | Character[]>(`https://rickandmortyapi.com/api/character/${this._favoriteIds().join(',')}`)
+      .get<Character | Character[]>(`${environment.API_URL}/character/${this._favoriteIds().join(',')}`)
       .pipe(
         map(response => (Array.isArray(response) ? response : [response])),
         map(characters => characters.sort((a, b) => a.name.localeCompare(b.name)))

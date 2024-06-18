@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
+import { environment } from '../../../../environments/environment';
+import { Response } from '../types/response.type';
 import { Character } from '../types/character.type';
 
 @Injectable({
@@ -10,9 +12,7 @@ import { Character } from '../types/character.type';
 export class CharactersService {
   private _http = inject(HttpClient);
 
-  public search(params: { name: string }): Observable<Character[]> {
-    return this._http
-      .get<Record<string, unknown>>('https://rickandmortyapi.com/api/character', { params })
-      .pipe(map((response: Record<string, unknown>) => response['results'] as Character[]));
+  public search(params: { name: string; page: number }): Observable<Response<Character>> {
+    return this._http.get<Response<Character>>(`${environment.API_URL}/character`, { params });
   }
 }

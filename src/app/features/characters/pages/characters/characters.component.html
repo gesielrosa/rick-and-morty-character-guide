@@ -1,12 +1,13 @@
 <app-page-header title="Início">
   <app-form-field slot="actions">
-    <label for="search">Pesquisar:</label>
     <input
       type="text"
       id="search"
       name="search"
+      placeholder="Pesquisar"
       [(ngModel)]="search"
-      (ngModelChange)="changeParams({ search: $event })" />
+      (ngModelChange)="onSearch($event || '')" />
+    <label for="search">Pesquisar</label>
   </app-form-field>
 </app-page-header>
 <div [ngClass]="{ 'grid grid-cols-12 gap-4': items()?.length }">
@@ -29,3 +30,8 @@
     </app-card>
   }
 </div>
+@if (pagination()?.next) {
+  <div class="flex justify-center pt-8">
+    <button app-button class="max-md:w-full" (click)="loadMore()">Carregar mais</button>
+  </div>
+}

@@ -2,14 +2,14 @@ import { NgClass } from '@angular/common';
 import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { debounceTime, finalize } from 'rxjs';
+import { debounceTime } from 'rxjs';
 
+import { ButtonComponent } from '../../../../ui/button/button.component';
+import { Pagination } from '../../types/pagination.type';
 import { setQueryParams } from '../../../../shared/utils/set-query-params';
 import { CardComponent } from '../../../../ui/card/card.component';
 import { FormFieldComponent } from '../../../../ui/form-field/form-field.component';
 import { PageHeaderComponent } from '../../../../ui/page-header/page-header.component';
-import { IsFavoritePipe } from '../../../favorites/pipes/is-favorite.pipe';
-import { FavoritesService } from '../../../favorites/services/favorites.service';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
 import { CharactersService } from '../../services/characters.service';
 import { Character } from '../../types/character.type';
@@ -18,13 +18,13 @@ import { Character } from '../../types/character.type';
   selector: 'app-characters',
   standalone: true,
   imports: [
-    CardComponent,
-    FormsModule,
-    CharacterCardComponent,
-    NgClass,
-    IsFavoritePipe,
     PageHeaderComponent,
     FormFieldComponent,
+    FormsModule,
+    NgClass,
+    CharacterCardComponent,
+    CardComponent,
+    ButtonComponent,
   ],
   templateUrl: './characters.component.html',
   styleUrl: './characters.component.scss',
@@ -34,6 +34,10 @@ export class CharactersComponent implements OnInit {
 
   public items = signal<Character[] | undefined>(undefined);
 
+  public pagination = signal<Pagination | undefined>(undefined);
+
+  public currentPage = signal<number>(1);
+
   private _activatedRoute = inject(ActivatedRoute);
 
   private _setQueryParams = setQueryParams();
@@ -41,15 +45,12 @@ export class CharactersComponent implements OnInit {
   private _service = inject(CharactersService);
 
   public ngOnInit(): void {
-    this._activatedRoute.queryParams.pipe(debounceTime(300)).subscribe(({ search }) => {
+    // NOTE: Is not necessary to unsubscribe from this subscription because it will be automatically unsubscribed when the component is destroyed
+    this._activatedRoute.queryParams.pipe(debounceTime(500)).subscribe(({ search, page }) => {
       this.search.set(search || '');
-      this.items.set(undefined);
+      this.currentPage.set(Number(page || 1));
 
-      if (search) {
-        this._searchCharacters();
-      } else {
-        this.items.set([]);
-      }
+      this._searchCharacters();
     });
   }
 
@@ -57,14 +58,31 @@ export class CharactersComponent implements OnInit {
     this._setQueryParams.set(params);
   }
 
+  public onSearch(searchTerm: string): void {
+    this.items.set(undefined);
+    this.pagination.set(undefined);
+    this.changeParams({ search: searchTerm, page: 1 });
+  }
+
+  public loadMore(): void {
+    this.changeParams({ page: this.currentPage() + 1 });
+  }
+
   private _searchCharacters(): void {
     this._service
       .search({
         name: this.search(),
+        page: this.currentPage(),
       })
       .subscribe({
-        next: response => this.items.set(response),
-        error: () => this.items.set([]),
+        next: response => {
+          this.items.update((items = []) => [...items, ...response.results]);
+          this.pagination.set(response.info);
+        },
+        error: () => {
+          this.items.set([]);
+          this.pagination.set(undefined);
+        },
       });
   }
 }
