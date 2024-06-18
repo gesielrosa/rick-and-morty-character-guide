@@ -32,6 +32,11 @@
 </div>
 @if (pagination()?.next) {
   <div class="flex justify-center pt-8">
-    <button app-button class="max-md:w-full" (click)="loadMore()">Carregar mais</button>
+    <button app-button class="max-md:w-full" [disabled]="loading()" (click)="loadMore()">
+      <span>Carregar mais</span>
+      @if (loading()) {
+        <span class="material-icons animate-spin text-sm">sync</span>
+      }
+    </button>
   </div>
 }

@@ -2,17 +2,17 @@ import { NgClass } from '@angular/common';
 import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { debounceTime } from 'rxjs';
+import { debounceTime, finalize } from 'rxjs';
 
-import { ButtonComponent } from '../../../../ui/button/button.component';
-import { Pagination } from '../../types/pagination.type';
 import { setQueryParams } from '../../../../shared/utils/set-query-params';
+import { ButtonComponent } from '../../../../ui/button/button.component';
 import { CardComponent } from '../../../../ui/card/card.component';
 import { FormFieldComponent } from '../../../../ui/form-field/form-field.component';
 import { PageHeaderComponent } from '../../../../ui/page-header/page-header.component';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
 import { CharactersService } from '../../services/characters.service';
 import { Character } from '../../types/character.type';
+import { Pagination } from '../../types/pagination.type';
 
 @Component({
   selector: 'app-characters',
@@ -37,6 +37,8 @@ export class CharactersComponent implements OnInit {
   public pagination = signal<Pagination | undefined>(undefined);
 
   public currentPage = signal<number>(1);
+
+  public loading = signal<boolean>(false);
 
   private _activatedRoute = inject(ActivatedRoute);
 
@@ -65,15 +67,19 @@ export class CharactersComponent implements OnInit {
   }
 
   public loadMore(): void {
+    this.loading.set(true);
     this.changeParams({ page: this.currentPage() + 1 });
   }
 
   private _searchCharacters(): void {
+    this.loading.set(true);
+
     this._service
       .search({
         name: this.search(),
         page: this.currentPage(),
       })
+      .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: response => {
           this.items.update((items = []) => [...items, ...response.results]);

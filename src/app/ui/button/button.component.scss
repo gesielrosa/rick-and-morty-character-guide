@@ -1,3 +1,11 @@
 [app-button] {
-  @apply bg-white py-2 px-4 rounded-xl text-black font-semibold text-sm inline-block;
+  @apply bg-white py-2 px-4 rounded-xl text-black font-semibold text-sm inline-flex items-center justify-center gap-2;
+
+  &:hover {
+    @apply bg-gray-100;
+  }
+
+  &:disabled {
+    @apply bg-gray-200 text-gray-400 cursor-not-allowed;
+  }
 }

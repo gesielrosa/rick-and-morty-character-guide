@@ -15,6 +15,8 @@ You can see a live demo of this project [here](https://rick-and-morty-character-
 - **Responsive**: The application is responsive and works on mobile devices.
 - **Signals**: Using the new Angular 18 feature, signals.
 - **Zoneless**: The application is zoneless, which means it uses the new Angular 18 feature, zoneless.
+- **Lazy Loading**: The application uses lazy loading to load the modules only when needed.
+- **No External Libraries**: The application does not use any external libraries, only Angular and Tailwind CSS.
 
 ## Tools and Versions
 
