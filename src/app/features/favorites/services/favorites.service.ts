@@ -52,6 +52,7 @@ export class FavoritesService {
   private _fetch(): void {
     if (!this._favoriteIds().length) {
       this.favorites.set([]);
+      return;
     }
 
     this._http
