@@ -1,3 +1,4 @@
 :host {
   @apply flex items-center justify-between bg-foreground min-h-16 px-8 max-lg:flex-col max-lg:py-4;
+  @apply lg:fixed lg:top-0 lg:left-0 lg:right-0 lg:z-10;
 }
