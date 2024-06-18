@@ -1,6 +1,4 @@
-<div class="flex items-center justify-between max-md:flex-col gap-6 mb-12">
-  <h1>Favoritos</h1>
-</div>
+<app-page-header title="Favoritos" />
 <div [ngClass]="{ 'grid grid-cols-12 gap-4': items()?.length }">
   @for (item of items(); track item.id) {
     <app-character-card
@@ -8,8 +6,7 @@
       [id]="item.id"
       [name]="item.name"
       [species]="item.species"
-      [image]="item.image"
-      (onToggleFavorite)="!$event && removeFavorite(item.id)">
+      [image]="item.image">
     </app-character-card>
   } @empty {
     <app-card class="grid place-content-center min-h-[500px]">

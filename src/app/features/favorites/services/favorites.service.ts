@@ -57,7 +57,10 @@ export class FavoritesService {
 
     this._http
       .get<Character | Character[]>(`https://rickandmortyapi.com/api/character/${this._favoriteIds().join(',')}`)
-      .pipe(map(response => (Array.isArray(response) ? response : [response])))
+      .pipe(
+        map(response => (Array.isArray(response) ? response : [response])),
+        map(characters => characters.sort((a, b) => a.name.localeCompare(b.name)))
+      )
       .subscribe({
         next: characters => this.favorites.set(characters),
         error: () => this.favorites.set([]),

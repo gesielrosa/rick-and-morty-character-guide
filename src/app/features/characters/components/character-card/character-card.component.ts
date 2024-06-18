@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 
 import { CardComponent } from '../../../../ui/card/card.component';
 import { IsFavoritePipe } from '../../../favorites/pipes/is-favorite.pipe';
@@ -20,12 +20,9 @@ export class CharacterCardComponent {
 
   public species = input.required<string>();
 
-  public onToggleFavorite = output<boolean>();
-
   private _favoritesService = inject(FavoritesService);
 
-  public toggleFavorite(status: boolean): void {
+  public toggleFavorite(): void {
     this._favoritesService.toggle(this.id());
-    this.onToggleFavorite.emit(status);
   }
 }

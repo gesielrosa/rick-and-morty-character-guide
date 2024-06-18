@@ -6,6 +6,8 @@ import { debounceTime, finalize } from 'rxjs';
 
 import { setQueryParams } from '../../../../shared/utils/set-query-params';
 import { CardComponent } from '../../../../ui/card/card.component';
+import { FormFieldComponent } from '../../../../ui/form-field/form-field.component';
+import { PageHeaderComponent } from '../../../../ui/page-header/page-header.component';
 import { IsFavoritePipe } from '../../../favorites/pipes/is-favorite.pipe';
 import { FavoritesService } from '../../../favorites/services/favorites.service';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
@@ -15,7 +17,15 @@ import { Character } from '../../types/character.type';
 @Component({
   selector: 'app-characters',
   standalone: true,
-  imports: [CardComponent, FormsModule, CharacterCardComponent, NgClass, IsFavoritePipe],
+  imports: [
+    CardComponent,
+    FormsModule,
+    CharacterCardComponent,
+    NgClass,
+    IsFavoritePipe,
+    PageHeaderComponent,
+    FormFieldComponent,
+  ],
   templateUrl: './characters.component.html',
   styleUrl: './characters.component.scss',
 })

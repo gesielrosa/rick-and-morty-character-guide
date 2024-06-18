@@ -1,10 +1,10 @@
 <app-card class="h-full overflow-hidden relative">
   @if (id() | isFavorite) {
-    <div class="absolute right-0 top-0 px-3 bg-white rounded-bl-3xl cursor-pointer" (click)="toggleFavorite(false)">
+    <div class="absolute right-0 top-0 px-3 bg-white rounded-bl-3xl cursor-pointer" (click)="toggleFavorite()">
       <span class="material-icons text-xl text-black">favorite</span>
     </div>
   } @else {
-    <div class="absolute right-0 top-0 px-3 cursor-pointer hover:text-neutral-400" (click)="toggleFavorite(true)">
+    <div class="absolute right-0 top-0 px-3 cursor-pointer hover:text-neutral-400" (click)="toggleFavorite()">
       <span class="material-icons text-xl">favorite_border</span>
     </div>
   }
