@@ -1,0 +1,11 @@
+app-form-field {
+  @apply block;
+
+  label {
+    @apply absolute -top-2 left-3 bg-background text-xs text-neutral-400;
+  }
+
+  input {
+    @apply bg-transparent p-3 outline-0 w-full;
+  }
+}
