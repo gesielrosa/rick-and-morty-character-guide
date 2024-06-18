@@ -1,0 +1,27 @@
+<div class="flex items-center justify-between max-md:flex-col gap-6 mb-12">
+  <h1>Favoritos</h1>
+</div>
+<div [ngClass]="{ 'grid grid-cols-12 gap-4': items()?.length }">
+  @for (item of items(); track item.id) {
+    <app-character-card
+      class="col-span-full md:col-span-6 lg:col-span-4 xl:col-span-3"
+      [id]="item.id"
+      [name]="item.name"
+      [species]="item.species"
+      [image]="item.image"
+      (onToggleFavorite)="!$event && removeFavorite(item.id)">
+    </app-character-card>
+  } @empty {
+    <app-card class="grid place-content-center min-h-[500px]">
+      @if (!items()) {
+        <p class="text-center text-lg text-neutral-400">Carregando...</p>
+      } @else {
+        <h2 class="text-center font-bold text-2xl mb-2">Parece que você ainda não tem favoritos</h2>
+        <p class="text-center text-lg text-neutral-400 mb-6">Volte à página inicial e escolha os melhores para você.</p>
+        <div class="text-center">
+          <a class="bg-white py-2 px-4 rounded-xl text-black font-semibold text-sm" routerLink="/">Voltar ao início</a>
+        </div>
+      }
+    </app-card>
+  }
+</div>

@@ -1,0 +1,19 @@
+:host {
+  @apply flex items-center;
+
+  a {
+    @apply flex items-center gap-2 h-10 px-4 text-neutral-400 border border-border hover:bg-border;
+
+    .count {
+      @apply rounded-full h-4 w-4 bg-white text-black text-sm flex items-center justify-center font-bold;
+    }
+
+    &.active {
+      @apply bg-white text-black hover:bg-white/90;
+
+      .count {
+        @apply bg-black text-white;
+      }
+    }
+  }
+}

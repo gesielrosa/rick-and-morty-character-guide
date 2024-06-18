@@ -1,0 +1,20 @@
+<a
+  class="border-r-0 rounded-l-xl"
+  routerLink="/"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{
+    matrixParams: 'ignored',
+    queryParams: 'ignored',
+    fragment: 'ignored',
+    paths: 'exact',
+  }">
+  <span class="material-icons text-[16px]">home</span>
+  Início
+</a>
+<a class="border-l-0 rounded-r-xl" routerLink="/favorites" routerLinkActive="active">
+  <span class="material-icons text-[16px]">favorite</span>
+  Favoritos
+  <span class="count">
+    {{ count() }}
+  </span>
+</a>
