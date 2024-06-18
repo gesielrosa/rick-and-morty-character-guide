@@ -1,27 +1,51 @@
-# RickAndMortyCharacterGuide
+# Rick and Morty Character Guide
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
+## Description
 
-## Development server
+This project is a simple guide to the characters of the Rick and Morty series. It uses the [Rick and Morty API](https://rickandmortyapi.com/) to fetch the characters' data.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Demo
 
-## Code scaffolding
+You can see a live demo of this project [here](https://rick-and-morty-character-guide.netlify.app/).
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+- **Search**: Search for characters by name.
+- **Favorite**: Add characters to your favorites list.
+- **Responsive**: The application is responsive and works on mobile devices.
+- **Signals**: Using the new Angular 18 feature, signals.
+- **Zoneless**: The application is zoneless, which means it uses the new Angular 18 feature, zoneless.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Tools and Versions
 
-## Running unit tests
+This project uses the following tools and versions:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Programming Language**: TypeScript ~5.4.2
+- **Framework**: Angular ^18.0.0
+- **Package Manager**: npm
+- **Build Tool**: Angular CLI ^18.0.2
+- **Formatting Tool**: Prettier (run with `npm run prettier`)
+- **Import Sorting Tool**: Import Conductor (run with `npm run import-conductor`)
 
-## Running end-to-end tests
+Please ensure you have the correct versions installed before running or contributing to this project.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Installation
 
-## Further help
+Ensure you have Node.js and npm installed on your machine.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Clone the repository: `git clone https://github.com/gesielrosa/rick-and-morty-character-guide.git`
+2. Navigate into the directory: `cd rick-and-morty-character-guide`
+3. Install the dependencies: `npm install`
+4. Start the application: `npm start`
+
+## Building
+
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
